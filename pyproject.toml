@@ -1,0 +1,42 @@
+#VPtools
+#Settings for packaging the project with setuptools, for distribution with PyPI.
+#For just using a local version of the code this can be safely ignored
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+#Include only specific folders or modules
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+#where = ["src"]  # ["."] by default
+include = ["specpolFlow*"]  # ["*"] by default
+
+[project]
+name = "VPtools"
+version = "0.0.1"
+authors = [ {name="Veronique Petit", email=" "},
+]
+description = "Tools for Dr. Petit's research group"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "astropy",
+    "specpolFlow",
+]
+
+[project.optional-dependencies]
+
+[project.urls]
+Homepage = "https://github.com/veropetit/VPtools"
+Documentation = "https://veropetit.github.io/VPtools/"
