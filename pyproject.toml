@@ -32,7 +32,7 @@ dependencies = [
     "scipy",
     "matplotlib",
     "astropy",
-    "specpolFlow",
+    "specpolFlow"
 ]
 
 [project.optional-dependencies]
