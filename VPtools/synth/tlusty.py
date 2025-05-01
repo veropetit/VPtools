@@ -2,7 +2,7 @@
 # Tools to manipulate tlusty models from the OSTAR2002 and BSTARS2006 databases
 
 import numpy as np
-import specpolFlow as pol
+#import specpolFlow as pol
 
 def read_tlusty(codename):
     '''
@@ -24,19 +24,19 @@ def read_tlusty(codename):
 
     return wl_flux, flux, cont_interp
 
-def read_tlusty_norm(codename):
-    '''
-    Function to read in a Tlusty synthetic spectrum and return the normalized spectrum
-    in a specpolFlow Spectrum object
+# def read_tlusty_norm(codename):
+#     '''
+#     Function to read in a Tlusty synthetic spectrum and return the normalized spectrum
+#     in a specpolFlow Spectrum object
 
-    :param codename: the path+codename of the model to open (so without the '.7.gz' or '.17.gz')
-    :rtype: pol.Spectrum the normalized flux spectrum in a specpolFlow Spectrum object 
+#     :param codename: the path+codename of the model to open (so without the '.7.gz' or '.17.gz')
+#     :rtype: pol.Spectrum the normalized flux spectrum in a specpolFlow Spectrum object 
 
-    '''
+#     '''
 
-    wl, flux, cont = read_tlusty(codename)
+#     wl, flux, cont = read_tlusty(codename)
 
-    Z = np.zeros(len(wl)) # arrays of zero to put in the specpolFLow object
+#     Z = np.zeros(len(wl)) # arrays of zero to put in the specpolFLow object
 
-    return pol.Spectrum(wl, flux/cont, 
-                        Z, Z, Z, Z, header='codename')
+#     return pol.Spectrum(wl, flux/cont, 
+#                         Z, Z, Z, Z, header='codename')
