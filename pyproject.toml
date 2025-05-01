@@ -27,11 +27,11 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "numpy", "specpolFlow"
-    #"scipy",
-    #"matplotlib",
-    #"astropy",
-    #"specpolFlow"
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "astropy",
+    "specpolFlow"
 ]
 
 #[project.optional-dependencies]
