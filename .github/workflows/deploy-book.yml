@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: 3.9
 
-    # VP not using conda for now
+    # VP not using conda for now 
     # using the pip install of the dependencies to build the book
     # at the moment, the notebooks are not auto-running
     # so I only need to load LSDpy and specpolFlow to run the auto API
