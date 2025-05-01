@@ -35,7 +35,7 @@ dependencies = [
     #"specpolFlow"
 ]
 
-[project.optional-dependencies]
+#[project.optional-dependencies]
 
 [project.urls]
 Homepage = "https://github.com/veropetit/VPtools"
