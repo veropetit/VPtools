@@ -28,10 +28,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
-    "specpolFlow"
-   # "scipy",
-   # "matplotlib",
-   # "astropy"
+    "specpolFlow",
 ]
 
 #[project.optional-dependencies]
