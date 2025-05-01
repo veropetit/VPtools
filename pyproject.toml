@@ -15,7 +15,7 @@ include = ["VPtools*"]  # ["*"] by default
 [project]
 name = "VPtools"
 version = "0.0.1"
-#authors = [ {name="Veronique Petit", email=" "} ]
+authors = [ {name="Veronique Petit", email=" "} ]
 #description = "Tools for Dr. Petit's research group"
 #readme = "README.md"
 requires-python = ">=3.8"
