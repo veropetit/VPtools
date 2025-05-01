@@ -39,7 +39,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r docs-jb-env.yml
-        pip install "git+https://github.com/folsomcp/SpecpolFlow"
+        pip install "git+https://github.com/veropetit/VPtools"
 
     # Build the book
     - name: Build the book
