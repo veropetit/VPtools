@@ -1,7 +1,15 @@
 Synth
 -----------------------------
 
-.. autofunction:: VPtools.synth.read_tlusty
+.. autoclass::  VPtools.Synth
+    :members:
 
-.. autofunction:: VPtools.synth.read_tlusty_norm
+
+.. autofunction:: VPtools.tlusty.read
+
+.. autofunction:: VPtools.tlusty.read_norm
+
+.. autofunction:: VPtools.poWR.get_table_gal
+
+.. autofunction:: VPtools.poWR.read
 

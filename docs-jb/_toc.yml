@@ -5,9 +5,13 @@ format: jb-book
 root: index.md
 parts:
 
-  - caption: Demos
+  - caption: Synthetic spectra
     chapters:
-    - file: Demos/tlusty.ipynb
+    - file: synth/synth.md
+    - file: synth/Synth-class.ipynb
+    - file: synth/poWR.ipynb
+    - file: synth/tlusty.ipynb
+
 
   - caption: API
     chapters:
