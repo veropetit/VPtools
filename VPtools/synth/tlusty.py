@@ -4,6 +4,10 @@
 import numpy as np
 from . import synth as synthLib
 
+galO_path_name = 'ResearchGroupResources-Files/ReferenceMaterial/TLUSTY/OSTAR2002/G{0}spec/G{1}g{2}v10.{0}'
+galB_path_name = 'ResearchGroupResources-Files/ReferenceMaterial/TLUSTY/BSTAR2006/BG{0}spec_v{3}/BG{1}g{2}v{3}.{0}'
+
+
 def read(codename):
     '''
     Function to read in a Tlusty synthetic spectrum from the OSTAR2002 or BSTAR2006 grids. 
