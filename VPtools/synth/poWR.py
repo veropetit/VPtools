@@ -20,7 +20,7 @@ def get_table_gal():
 def read(file):
     '''
     Function to read in a poWR synthetic spectrum into a 
-    specpolFlow Spectrum object
+    Synth object
     '''
     # The files are simply two columns
     wl, flux = np.genfromtxt(file, unpack=True)

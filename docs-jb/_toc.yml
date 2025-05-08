@@ -10,6 +10,7 @@ parts:
     - file: synth/synth.md
     - file: synth/Synth-class.ipynb
     - file: synth/poWR.ipynb
+    - file: synth/cmfgen.ipynb
     - file: synth/tlusty.ipynb
 
 
