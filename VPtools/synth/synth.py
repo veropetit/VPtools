@@ -5,12 +5,121 @@
 import numpy as np
 import copy 
 import specpolFlow as pol
-
+import VPtools as vp
 # Only for debugging
 import matplotlib.pyplot as plt
 
 const_c = 299792.458  #speed of light in km/s
 
+
+def tlusty_binary(path_google,model1,model2,vsini1,vsini2,R2R1,vrad1,vrad2):
+    '''
+    Combines two spectra into a joint binary model spectrum
+
+    :param path_google: the google path of shared drives
+    :param model1: a TLUSTY path name for the 1st model
+    :param model2: a TLUSTY path name for the 2nd model
+    :param vsini1: the vsini of star 1
+    :param vsini2: the vsini of star 2
+    :param R2R1: the radius ratio of stars (R2/R1)
+    :param vrad1: the radial velocity of star 1
+    :param vrad2: the radial velocity of star 2
+
+    :param rtype: Synth object
+    '''
+    synth1, synth1_con = vp.tlusty.read(path_google+model1) #read in the first star
+    synth2, synth2_con = vp.tlusty.read(path_google+model2)
+    return modelSB(synth1,synth1_con,synth2,synth2_con,vsini1,vsini2,R2R1,vrad1,vrad2)
+
+def cmfgen_binary(path_google,model1,model2,vsini1,vsini2,R2R1,vrad1,vrad2):
+    '''
+    Combines two spectra into a joint binary model spectrum
+
+    :param path_google: the google path of shared drives
+    :param model1: a CMFGEN path name for the 1st model
+    :param model2: a CMFGEN path name for the 2nd model
+    :param vsini1: the vsini of star 1
+    :param vsini2: the vsini of star 2
+    :param R2R1: the radius ratio of stars (R2/R1)
+    :param vrad1: the radial velocity of star 1
+    :param vrad2: the radial velocity of star 2
+
+    :param rtype: Synth object
+    '''
+    synth1, synth_norm1 = vp.cmfgen.read(path_google+model1)
+    synth2, synth_norm2 = vp.cmfgen.read(path_google+model2)
+
+    synth1_con=vp.Synth(synth1.wl,synth1.specI/synth_norm1.specI)
+    synth2_con=vp.Synth(synth2.wl,synth2.specI/synth_norm2.specI)
+    return modelSB(synth1,synth1_con,synth2,synth2_con,vsini1,vsini2,R2R1,vrad1,vrad2)
+
+def synth3_binary(path_google,model1,model2,vsini1,vsini2,R2R1,vrad1,vrad2):
+    '''
+    Combines two spectra into a joint binary model spectrum
+
+    :param path_google: the google path of shared drives
+    :param model1: a synth3 path name for the 1st model
+    :param model2: a synth3 path name for the 2nd model
+    :param vsini1: the vsini of star 1
+    :param vsini2: the vsini of star 2
+    :param R2R1: the radius ratio of stars (R2/R1)
+    :param vrad1: the radial velocity of star 1
+    :param vrad2: the radial velocity of star 2
+
+    :param rtype: Synth object
+    '''
+    synth_norm1, synth1_con = vp.synth3.read(path_google+model1)
+    synth_norm2, synth2_con = vp.synth3.read(path_google+model2)
+
+    synth1=vp.Synth(synth_norm1.wl,synth1_con.specI*synth_norm1.specI)
+    synth2=vp.Synth(synth_norm2.wl,synth2_con.specI*synth_norm2.specI)
+    return modelSB(synth1,synth1_con,synth2,synth2_con,vsini1,vsini2,R2R1,vrad1,vrad2)
+
+def modelSB(synth1,synth1_con,synth2,synth2_con,vsini1,vsini2,R2R1,vrad1,vrad2):
+    '''
+    Combines two spectra into a joint binary model spectrum
+
+    :param synth1: a synth object of the unnormalized spectra for star 1
+    :param synth1_con: a synth object of the continuum for star 2
+    :param synth2: a synth object of the unnormalized spectra for star 1
+    :param synth2_con: a synth object of the continuum for star 2
+    :param vsini1: the vsini of star 1
+    :param vsini2: the vsini of star 2
+    :param R2R1: the radius ratio of stars (R2/R1)
+    :param vrad1: the radial velocity of star 1
+    :param vrad2: the radial velocity of star 2
+
+    :param rtype: Synth object
+    '''
+
+    #shift the spectra to the vrad of star1
+    shifted1=synth1.doppler_shift(vrad1)
+    shifted1c=synth1_con.doppler_shift(vrad1)
+
+    wl=synth1.wl #defines the output wavelength range
+
+    #interpolates the vrad shifted spectra to the output wavelength range
+    interp1=shifted1.interp(wl)
+    interp1_con=shifted1c.interp(wl)
+
+    #rotationally broadens the spectra
+    broad1=interp1.rot_int_cmj(vsini=vsini1)
+    broad1_con=interp1_con.rot_int_cmj(vsini=vsini1)
+
+    #repeat for star 2
+    shifted2=synth2.doppler_shift(vrad2)
+    shifted2c=synth2_con.doppler_shift(vrad2)
+
+    interp2=shifted2.interp(wl)
+    interp2_con=shifted2c.interp(wl)
+
+    broad2=interp2.rot_int_cmj(vsini=vsini2)
+    broad2_con=interp2_con.rot_int_cmj(vsini=vsini2)    
+
+    #combines the two synth spectra
+    joint=((broad1.specI)+broad2.specI*R2R1**2)/((broad1_con.specI)+broad2_con.specI*R2R1**2)
+    
+    return(vp.synth.Synth(wl,joint))
 
 class Synth():
     '''

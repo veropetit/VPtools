@@ -12,6 +12,8 @@ parts:
     - file: synth/poWR.ipynb
     - file: synth/cmfgen.ipynb
     - file: synth/tlusty.ipynb
+    - file: synth/synth3.ipynb
+    - file: synth/binary_model.ipynb
 
 
   - caption: API
